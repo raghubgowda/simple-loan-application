@@ -1,4 +1,4 @@
-# FTA - Feature Toggle Application
+# SLA - Simple Loan Application
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
 
@@ -7,7 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ###  Backend service
 Get the backend from the below location and follow the instructions in the readme file.
 
-`https://github.com/raghubgowda/fta-backend`
+`https://github.com/raghubgowda/SLA-backend`
 
 The backend service runs on port 8080.
 
@@ -21,8 +21,8 @@ Get it now  </a> if it's not already installed on your machine.
 
 Clone this repo into new project folder (e.g., `fta`).
 ```shell
-git clone git@github.com:raghubgowda/fta-frontend.git fta
-cd fta
+git clone git@github.com:raghubgowda/simple-loan-application.git sla
+cd sla
 ```
 
 ## Install npm packages
