@@ -1,0 +1,53 @@
+﻿<div>
+  <table
+    class="table table-striped table-bordered"
+    *ngIf="applications && applications.length"
+    style="margin-top: 10px;"
+  >
+    <thead class="bg-dark text-white">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Application ID</th>
+        <th scope="col">Required Amount</th>
+        <th scope="col">Status</th>
+        <th scope="col">Requested Date</th>
+        <th *ngIf="canEdit">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let application of applications; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ application.id }}</td>
+        <td>{{ application.requiredLoanAmount }}</td>
+        <td>{{ application.isApproved == null ? 'Pending' : (application.isApproved ? 'Approved' : 'Rejected') }}</td>
+        <td>{{ application.requestedDate | date: "MM-dd-yyyy" }}</td>
+        <td *ngIf="canEdit">
+          <button
+            class="btn btn-primary"
+            (click)="editApplication(application.id)"
+            style="margin: 5px;"
+            *ngIf="canEdit"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-primary"
+            (click)="deleteApplication(application.id)"
+            *ngIf="canEdit"
+            style="margin: 5px;"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="canEdit" style="margin-top: 5px;">
+    <button class="btn btn-primary" (click)="applyForLoan()">Apply for Loan</button>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 offset-sm-3">
+      <alert></alert>
+    </div>
+  </div>
+</div>
