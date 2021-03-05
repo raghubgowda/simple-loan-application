@@ -6,14 +6,20 @@ import { Router } from '@angular/router';
 @Component({ templateUrl: 'loan.application.component.html' })
 export class LoanApplicationComponent implements OnInit {
     applications = [];
-    canEdit: boolean = false;
+    isApplicant: boolean = false;
+    isReviewer: boolean = false;
     constructor(
         private authenticationService: AuthenticationService,
         private loanApplicationService: LoanApplicationService,
         private router: Router,
         private alertService: AlertService
     ) {
-        this.canEdit = this.authenticationService.currentUserValue.role == Role.Reviewer;
+        if(this.authenticationService.currentUserValue.role == Role.Applicant){
+          this.isApplicant = true;
+        }
+        else{
+          this.isReviewer = true;
+        }
     }
 
     ngOnInit() {
@@ -30,8 +36,12 @@ export class LoanApplicationComponent implements OnInit {
         this.router.navigate(['/applyForLoan']);
     }
 
-    editApplication(id: string): void {
-        this.router.navigate(['/editApplication', id]);
+    viewApplication(id: string): void {
+        this.router.navigate(['/viewApplication', id]);
+    }
+
+    reviewApplication(id: string): void {
+      this.router.navigate(['/reviewApplication', id]);
     }
 
     deleteApplication(id: string): void {

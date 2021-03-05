@@ -1,20 +1,21 @@
-import { LoanApplicationService } from './../services/loan.application.service';
+import { LoanApplicationService } from '../services/loan.application.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoanApplication, User } from '../models';
+import { LoanApplication, User, Role } from '../models';
 import { AlertService, AuthenticationService } from '../services';
 import { FormGroup } from '@angular/forms';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
 import { DatePipe } from '@angular/common';
-import { LoanApplicationComponent } from './loan.application.component';
 
 @Component({
-  templateUrl: './loan-application-detail.component.html'
+  templateUrl: './new-loan-application.component.html'
 })
-export class LoanApplicationDetailComponent implements OnInit {
+export class NewLoanApplicationComponent implements OnInit {
   pageTitle: string = '';
   loanApplicationFormGroup: FormGroup;
   LoanApplication: LoanApplication;
+  isApplicant: boolean = false;
+  isReviewer: boolean = false;
   loggedInUser: User;
   error: any = { isError: false, errorMessage: '' };
 
@@ -26,26 +27,23 @@ export class LoanApplicationDetailComponent implements OnInit {
     private alertService: AlertService,
     private authenticationService: AuthenticationService,
     private datePipe: DatePipe) {
-    this.authenticationService.currentUser.subscribe(user => this.loggedInUser = user);
+    this.authenticationService.currentUser.subscribe(user => {
+      this.loggedInUser = user;
+      if(this.loggedInUser.role == Role.Applicant){
+        this.isApplicant = true;
+      }
+      else{
+        this.isReviewer = true;
+      }
+    });
   };
 
   ngOnInit() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    if (id) {
-      this.loanApplicationService.getLoanApplicationDetails(id).subscribe({
-        next: loanApplication => {
-          this.pageTitle = `Loan Application Details`;
-          this.loanApplicationFormGroup = this.formBuilder.formGroup(LoanApplication, loanApplication);
-        },
-        error: err => this.alertService.error(err)
-      });
-    }
-    else {
       this.pageTitle = `Apply for new Loan`;
       let loanApplication = new LoanApplication();
       loanApplication.applicantEmailId = this.loggedInUser.email;
+      loanApplication.requestedDate = new Date();
       this.loanApplicationFormGroup = this.formBuilder.formGroup(LoanApplication, loanApplication);
-    }
   }
 
   onBack(): void {
@@ -53,13 +51,13 @@ export class LoanApplicationDetailComponent implements OnInit {
   }
 
   onSubmit() {
-    let updateLoanApplication = new LoanApplication(this.loanApplicationFormGroup.value);
+    let newLoanApplication = new LoanApplication(this.loanApplicationFormGroup.value);
 
-    this.loanApplicationService.updateLoanApplication(updateLoanApplication)
+    this.loanApplicationService.applyForLoan(newLoanApplication)
       .pipe()
       .subscribe(
         data => {
-          this.alertService.success('Loan Application Details saved successfully', true);
+          this.alertService.success('New Loan Application Created Successfully', true);
           this.router.navigate(['']);
         },
         error => {

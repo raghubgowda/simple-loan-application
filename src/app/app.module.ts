@@ -1,4 +1,7 @@
-﻿import { NgModule } from '@angular/core';
+﻿import { NewLoanApplicationComponent } from './loan-application/new-loan-application.component';
+import { ReviewLoanApplicationComponent } from './loan-application/review-loan-application.component';
+import { ViewLoanApplicationComponent } from './loan-application/view-loan-application.component';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -14,7 +17,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { LoanApplicationComponent } from './loan-application';
-import { LoanApplicationDetailComponent } from './loan-application/loan-application-detail.component';
 
 @NgModule({
     imports: [
@@ -32,7 +34,9 @@ import { LoanApplicationDetailComponent } from './loan-application/loan-applicat
         LoginComponent,
         RegisterComponent,
         AlertComponent,
-        LoanApplicationDetailComponent
+        ViewLoanApplicationComponent,
+        ReviewLoanApplicationComponent,
+        NewLoanApplicationComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

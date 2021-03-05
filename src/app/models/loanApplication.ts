@@ -1,4 +1,5 @@
 import { required, prop } from "@rxweb/reactive-form-validators";
+import { LoanApplicationStatus } from './loanApplicationStatus';
 
 export class LoanApplication {
     @prop()
@@ -6,7 +7,7 @@ export class LoanApplication {
     @required()
     name: string;
     @required()
-    dob: Date;
+    age: Number;
     @required()
     requiredLoanAmount: number;
     @prop()
@@ -22,7 +23,7 @@ export class LoanApplication {
     @prop()
     reviewerComments: string;
     @prop()
-    isApproved: boolean = false;
+    status: string = LoanApplicationStatus.Pending;
 
     constructor(cfg: Partial<LoanApplication> = {}) {
         Object.assign(this, cfg);
