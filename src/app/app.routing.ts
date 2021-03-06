@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: '', component: LoanApplicationComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'viewApplication/:id', component: ViewLoanApplicationComponent, canActivate: [ApplicantRoleGaurd] },
+    { path: 'viewApplication/:id', component: ViewLoanApplicationComponent},
     { path: 'applyForLoan', component: NewLoanApplicationComponent, canActivate: [ApplicantRoleGaurd] },
     { path: 'reviewApplication/:id', component: ReviewLoanApplicationComponent, canActivate: [ReviewerRoleGaurd] },
     // otherwise redirect to home

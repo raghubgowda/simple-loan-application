@@ -5,6 +5,7 @@
     <form
       *ngIf="loanApplicationFormGroup"
       [formGroup]="loanApplicationFormGroup"
+      (ngSubmit)="onSubmit()"
     >
       <div class="form-group">
         <label for="name">Name</label>
@@ -23,12 +24,22 @@
         <input type="number" formControlName="requiredLoanAmount" class="form-control" disabled/>
       </div>
       <div class="form-group">
-        <label for="approvedLoanAmount">Approved Loan Amount</label>
-        <input type="number" formControlName="approvedLoanAmount" class="form-control" disabled="LoanApplication.status !== 'Pending'"/>
+        <label for="status">Decision</label>
+        <select
+          formControlName="status"
+          class="form-control"
+        >
+          <option value="Approved">Approve</option>
+          <option value="Rejected">Reject</option>
+        </select>
       </div>
       <div class="form-group">
-        <label for="reviewerComments">Reviewer Comments</label>
-        <textarea type="number" formControlName="reviewerComments" class="form-control" disabled="LoanApplication.status !== 'Pending'"></textarea>
+        <label for="approvedLoanAmount">Approved Loan Amount</label>
+        <input type="number" formControlName="approvedLoanAmount" class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label for="reviewerComments">Comments</label>
+        <textarea type="number" formControlName="reviewerComments" class="form-control"></textarea>
       </div>
       <div class="form-group">
         <button class="btn btn-primary">
