@@ -42,10 +42,12 @@
         <textarea type="number" formControlName="reviewerComments" class="form-control"></textarea>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" style="margin: 5px;">
           Update
         </button>
-        <a routerLink="/" class="btn btn-link">Cancel</a>
+        <button class="btn btn-primary" (click)="onBack()" style="margin: 5px;">
+          Cancel
+        </button>
       </div>
     </form>
   </div>

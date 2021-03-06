@@ -34,7 +34,7 @@
             View
           </button>
           <button
-            *ngIf="isApplicant"
+            *ngIf="isApplicant && application.status != 'Approved'"
             class="btn btn-primary"
             (click)="deleteApplication(application.id)"
             style="margin: 5px;"

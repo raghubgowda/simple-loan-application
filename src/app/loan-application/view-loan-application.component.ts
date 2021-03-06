@@ -17,7 +17,6 @@ export class ViewLoanApplicationComponent implements OnInit {
   error: any = { isError: false, errorMessage: '' };
 
   constructor(
-    private formBuilder: RxFormBuilder,
     private activatedRoute: ActivatedRoute,
     private loanApplicationService: LoanApplicationService,
     private router: Router,
@@ -30,7 +29,6 @@ export class ViewLoanApplicationComponent implements OnInit {
       next: loanApplication => {
         this.loanApplication = loanApplication;
         this.pageTitle = `Loan Application Details`;
-        this.loanApplicationFormGroup = this.formBuilder.formGroup(LoanApplication, loanApplication);
       },
       error: err => this.alertService.error(err)
     });
@@ -40,7 +38,7 @@ export class ViewLoanApplicationComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  onSubmit() {
+  refreshStatus() {
     console.log('Refresh status!!!!');
   }
 
