@@ -28,9 +28,17 @@
         <input type="text" value="{{loanApplication.reviewerComments}}" class="form-control" disabled/>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary" *ngIf="loanApplication.status == 'Pending'" (click)="refreshStatus()" style="margin: 5px;">
+        <button class="btn btn-primary" *ngIf="loanApplication.status == 'Pending' && userRole == 'Applicant'" (click)="refreshStatus()" style="margin: 5px;">
           Refresh Status
         </button>
+        <button
+            *ngIf="userRole == 'Reviewer' && loanApplication.status == 'Pending'"
+            class="btn btn-primary"
+            (click)="reviewApplication(loanApplication.id)"
+            style="margin: 5px;"
+          >
+            Review
+          </button>
         <button class="btn btn-primary" (click)="onBack()" style="margin: 5px;">
           Back
         </button>
